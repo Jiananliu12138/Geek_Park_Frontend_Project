@@ -14,7 +14,7 @@ function App() {
     <HistoryRouter history={history}>
       <div className="App">
        <Routes>
-            <Route path="/" element={
+            <Route path="/*" element={
               //<AuthRoute>
               <Layout/>
               //</AuthRoute>

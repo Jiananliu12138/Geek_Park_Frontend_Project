@@ -1,10 +1,11 @@
 import logo from '@/assets/logo.png'
 import './index.scss'
-import { Button, Checkbox, Form, Input ,Card } from 'antd';
+import { Button, Checkbox, Form, Input ,Card ,Alert} from 'antd';
 import { useStore } from '@/store/index.js'
 import { useNavigate } from 'react-router-dom';
-
+import {  useState } from 'react';
 const Login = () => {
+  const[state, setState] = useState(true)
   const navigate = useNavigate()
   const { loginStore } = useStore()
 
@@ -14,9 +15,10 @@ const Login = () => {
     await loginStore.loginStore.Login({mobile, code})
     navigate('/')
   } catch (e) {
-    console.log(e)
+    setState(false)
   }
 }
+const onClose = () => {setState(true)}
   return (
     <div className="login">
       <Card className="login-container">
@@ -24,11 +26,8 @@ const Login = () => {
         {/* 登录表单 */}
       <Form validateTrigger={['onBlur', 'onChange']} 
       onFinish={ onFinish }
-      initialValues={{
-      mobile: '13800000002',
-      code: '246810',
-      remember: true
-  }}>
+      >
+
       <Form.Item
       name="mobile"
         rules={[
@@ -61,6 +60,16 @@ const Login = () => {
           登录
         </Button>
       </Form.Item>
+      <Form.Item></Form.Item>
+      {!state&&(<Form.Item>
+        <Alert
+      message="输入了错误的信息请重试"
+      description="请仔细检查手机号和验证码"
+      type="error"
+      closable
+       onClose={onClose}
+    />
+        </Form.Item>)}
       </Form>
       </Card>
     </div>

@@ -48,7 +48,7 @@ const pageChange = (page) => {
     })
 }
 const delArticle = async (data) => {
-    await http.delete(`/mp/articles/${data.id}`)
+    await http.delete(`http://localhost:3001/takeaway/${data.id}`)
     // 更新列表
     setParams({
       page: 1,
@@ -64,16 +64,14 @@ const delArticle = async (data) => {
 }, [])
 useEffect(() => {
     async function fetchArticleList() {
-      const res = await http.get('/mp/articles', { params })
-      console.log(res)
+      const res = await http.get('http://localhost:3001/takeaway', { params })
       const { results, total_count } = res.data
       setArticleList({
         list: results,
         count: total_count
-      })
+      },[])
     }
-    //请求不到数据库地址等接口恢复再说
-    // fetchArticleList()
+ fetchArticleList()
 }, [params])
   const columns = [
     {
@@ -134,57 +132,6 @@ useEffect(() => {
       }
     }
   ]
-
-  const data = [
-      {
-          id: '8218',
-          comment_count: 0,
-          cover: {
-            images:['http://geek.itheima.net/resources/images/15.jpg'],
-          },
-          like_count: 0,
-          pubdate: '2019-03-11 09:00:00',
-          read_count: 2,
-          status: 2,
-          title: 'wkwebview离线化加载h5资源解决方案' 
-      },
-      {
-          id: '8218',
-          comment_count: 0,
-          cover: {
-            images:['http://geek.itheima.net/resources/images/15.jpg'],
-          },
-          like_count: 0,
-          pubdate: '2019-03-11 09:00:00',
-          read_count: 2,
-          status: 2,
-          title: 'wkwebview离线化加载h5资源解决方案' 
-      },
-      {
-          id: '8218',
-          comment_count: 0,
-          cover: {
-            images:['http://geek.itheima.net/resources/images/15.jpg'],
-          },
-          like_count: 0,
-          pubdate: '2019-03-11 09:00:00',
-          read_count: 2,
-          status: 2,
-          title: 'wkwebview离线化加载h5资源解决方案' 
-      },
-      {
-          id: '8218',
-          comment_count: 0,
-          cover: {
-            images:['http://geek.itheima.net/resources/images/15.jpg'],
-          },
-          like_count: 0,
-          pubdate: '2019-03-11 09:00:00',
-          read_count: 2,
-          status: 2,
-          title: 'wkwebview离线化加载h5资源解决方案' 
-      }
-  ]
   return (
     <div>
       <Card
@@ -238,7 +185,7 @@ useEffect(() => {
       <div>
       <Card title={`根据筛选条件共查询到  ${article.count}条结果：`}>
         {/* dataSource={article.list} */}
-        <Table columns={columns} dataSource={data} 
+        <Table columns={columns} dataSource={article.list} 
         pagination={{
         position: ['bottomCenter'],
         current: params.page,
