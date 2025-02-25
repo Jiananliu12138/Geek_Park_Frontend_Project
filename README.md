@@ -64,6 +64,7 @@ npm run server
 ## 📚 Documentation
 
 This section contains further details on the project's structure, components, and how to use the system effectively.
+https://www.yuque.com/fechaichai/tzzlh1
 
 1. **Authentication**  
    - JWT is used for user authentication. The login page handles user credentials, and once authenticated, a token is generated and used for subsequent API requests.
@@ -76,6 +77,7 @@ This section contains further details on the project's structure, components, an
 
 4. **API Integration**  
    - All API requests are handled via Axios, and requests are intercepted for authorization and error handling.
+   - https://apifox.com/apidoc/shared-fa9274ac-362e-4905-806b-6135df6aa90e/api-32115295
 
 5. **ECharts Integration**  
    - Data visualizations are implemented using ECharts, which enables rich charts like bar, pie, line, etc.
