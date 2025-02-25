@@ -15,9 +15,9 @@ function App() {
       <div className="App">
        <Routes>
             <Route path="/*" element={
-              //<AuthRoute>
+              <AuthRoute>
               <Layout/>
-              //</AuthRoute>
+              </AuthRoute>
               }>
                 <Route index element={<Home />} />
                 <Route path="article" element={<Article />} />

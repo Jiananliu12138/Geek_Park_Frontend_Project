@@ -17,10 +17,9 @@ const GeekLayout = () => {
   const selectedKey = location.pathname
  const { userStore,loginStore} = useStore()
   const navigate = useNavigate()
-  //请求用户名字api不可用
-  // useEffect(() => {
-  //     userStore.getUserInfo()
-  // }, [userStore])
+  useEffect(() => {
+      userStore.getUserInfo()
+  }, [userStore])
 
 const onLogout = () => {
     loginStore.loginOut()

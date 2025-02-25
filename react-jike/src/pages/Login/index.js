@@ -4,6 +4,7 @@ import { Button, Checkbox, Form, Input ,Card ,Alert} from 'antd';
 import { useStore } from '@/store/index.js'
 import { useNavigate } from 'react-router-dom';
 import {  useState } from 'react';
+import { convertLegacyProps } from 'antd/es/button';
 const Login = () => {
   const[state, setState] = useState(true)
   const navigate = useNavigate()
@@ -12,10 +13,11 @@ const Login = () => {
   const onFinish = async (values) => {
   const { mobile, code} = values
   try {
-    await loginStore.loginStore.Login({mobile, code})
+    await loginStore.login({mobile, code})
     navigate('/')
   } catch (e) {
     setState(false)
+    console.log(e)
   }
 }
 const onClose = () => {setState(true)}
@@ -25,6 +27,11 @@ const onClose = () => {setState(true)}
         <img className="login-logo" src={logo} alt="" />
         {/* 登录表单 */}
       <Form validateTrigger={['onBlur', 'onChange']} 
+      initialValues={{
+      mobile: "13888888888",
+      code: "246810",
+      remember: true
+  }}
       onFinish={ onFinish }
       >
 

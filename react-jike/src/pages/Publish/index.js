@@ -15,11 +15,12 @@ import { Link } from 'react-router-dom'
 import './index.scss'
 import {http} from '@/utils/index'
 import { useState, useEffect ,useRef} from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams,useNavigate} from 'react-router-dom'
 
 const { Option } = Select
 
 const Publish = () => {
+  const navigate = useNavigate()
   const [form] = Form.useForm()
   const [params] = useSearchParams()
   const articleId = params.get('id')
@@ -85,15 +86,16 @@ const fileListRef = useRef([])
         type: type,
         images: fileList.map(item => item.url)
       },
-      type,
       title,
     }
      if(articleId){
       // 编辑
-      await http.put(`/mp/articles/${params.id}?draft=false`,params)
+      await http.put(`/mp/articles/${articleId}?draft=false`,params)
+      navigate('/article')
     }else{
       // 新增
       await http.post('/mp/articles?draft=false', params)
+      navigate('/article')
     }
   }
 
@@ -113,6 +115,7 @@ const fileListRef = useRef([])
           labelCol={{ span: 4 }}
           wrapperCol={{ span: 16 }}
           onFinish={ onFinish}
+          form = {form}
         >
           <Form.Item
             label="标题"
@@ -135,7 +138,7 @@ const fileListRef = useRef([])
 
           <Form.Item label="封面">
             <Form.Item name="type">
-              <Radio.Group onChange={changeType}>
+              <Radio.Group onChange={changeType} defaultValue={1}> 
                 <Radio value={1}>单图</Radio>
                 <Radio value={3}>三图</Radio>
                 <Radio value={0}>无图</Radio>

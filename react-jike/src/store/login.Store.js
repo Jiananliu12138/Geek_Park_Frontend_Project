@@ -12,7 +12,6 @@ class LoginStore {
       code
     })
     this.token = res.data.token
-    console.log(res)
     setToken(res.data.token)
   }
   loginOut = () => {

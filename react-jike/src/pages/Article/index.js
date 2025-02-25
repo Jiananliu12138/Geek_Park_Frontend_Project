@@ -19,7 +19,7 @@ const Article = () => {
 })
   const [params, setParams] = useState({
     page: 1,
-    per_page: 10
+    per_page: 4
 })
 const onSearch = (values) => {
     const { status, channel_id, date } = values
@@ -48,11 +48,10 @@ const pageChange = (page) => {
     })
 }
 const delArticle = async (data) => {
-    await http.delete(`http://localhost:3001/takeaway/${data.id}`)
+    await http.delete(`/mp/articles/${data.id}`)
     // 更新列表
     setParams({
-      page: 1,
-      per_page: 10
+      per_page: 4
     })
 }
   useEffect(() => {
@@ -64,7 +63,7 @@ const delArticle = async (data) => {
 }, [])
 useEffect(() => {
     async function fetchArticleList() {
-      const res = await http.get('http://localhost:3001/takeaway', { params })
+      const res = await http.get('mp/articles', { params })
       const { results, total_count } = res.data
       setArticleList({
         list: results,
@@ -190,7 +189,8 @@ useEffect(() => {
         position: ['bottomCenter'],
         current: params.page,
         pageSize: params.per_page,
-        onChange: pageChange,}}
+        total: article.count,
+        onChange: pageChange}}
         />
       </Card>
     </div>
